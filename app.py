@@ -22,6 +22,10 @@ def index():
     products = res.json()
     return render_template('index.html', products=products)
 
+# About page
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 # Product detail view
 @app.route('/product/<int:id>')

@@ -77,8 +77,9 @@ a {
 }
 
 .product-card img {
-    max-height: 150px;
-    object-fit: contain;
+    width: 100%;
+    height: 200px; /* consistent height */
+    object-fit: contain; /* make sure image scales without being cut */
     margin-bottom: 10px;
 }
 
@@ -354,3 +355,104 @@ textarea {
     background: #c82333;
 }
 
+/*about page*/
+.about-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    line-height: 1.6;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.about-hero {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.about-hero h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.about-section {
+    margin-bottom: 20px;
+}
+
+.about-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.about-section ul li {
+    padding: 5px 0;
+}
+
+.about-section ul li::before { /* Optional: Add a custom bullet point */
+    content: "\2022"; /* Unicode for a bullet */
+    color: #007bff; /* Color the bullet */
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+.team-heading {
+    text-align: center;
+    margin: 25px 0;
+}
+
+.team-grid {
+    display: grid;
+    /* This will dynamically create columns: 3 on large screens, 2 or 1 on smaller */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.team-member {
+    text-align: center;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.team-member img {
+    width: 100%;
+    max-width: 150px; /* Limits max size for consistency */
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.team-member h3 {
+    margin: 8px 0 5px 0;
+    font-size: 1.1em;
+    color: #222;
+}
+
+.team-member p {
+    font-size: 0.9em;
+    color: #555;
+    margin: 0;
+}
+
+/* Optional: Basic responsiveness for team grid if needed */
+@media (max-width: 768px) {
+    .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Smaller cards on medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .team-grid {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+    }
+    .about-container {
+        margin: 20px 10px;
+        padding: 15px;
+    }
+}

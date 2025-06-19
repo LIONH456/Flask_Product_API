@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Us - SU2 Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<header>
+    {% include '_navbar.html' %}
+</header>
+
+<main class="about-container">
+    <section class="about-hero">
+        <h1>About SU2 Shop</h1>
+        <p>Your one-stop platform for amazing products at affordable prices.</p>
+    </section>
+
+    <section class="about-section">
+        <h2>Our Story</h2>
+        <p>
+            SU2 Shop started as a small project by passionate university students
+            who wanted to make online shopping accessible and fun.
+            Today, we're building a seamless and modern shopping experience for everyone.
+        </p>
+    </section>
+
+    <section class="about-section">
+        <h2>Our Mission</h2>
+        <p>
+            Our mission is simple: to bring high-quality products to our customers
+            while learning and growing in the world of technology.
+        </p>
+    </section>
+
+    <section class="about-section">
+        <h2>Meet the Team</h2>
+        <ul>
+            <li><strong>Jun Hong Ho.</strong> – Team Leader</li>
+            <li><strong>Huang Chinghor</strong> – Video Creator</li>
+            <li><strong>Chhiv Thailong</strong> – UX-UI</li>
+            <li><strong>Chhiv Thailong</strong> – UX-UI</li>
+        </ul>
+    </section>
+</main>
+
+<footer style="text-align:center; padding: 20px;">
+    &copy; 2025 SU2 Shop. Built with Flask ❤️
+</footer>
+
+</body>
+</html>

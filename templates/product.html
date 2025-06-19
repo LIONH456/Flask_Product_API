@@ -8,15 +8,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar">
-            <div class="nav-logo">🛍 SU2</div>
-            <ul class="nav-links">
-                <li><a href="{{ url_for('index') }}">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="{{ url_for('cart') }}">Cart 🛒</a></li>
-            </ul>
-        </nav>
+        {% include '_navbar.html' %}
     </header>
 
     <main class="product-detail-container">
