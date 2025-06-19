@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop - Modern UI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <div class="nav-logo">🛍 ModernShop</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="{{ url_for('cart') }}">Cart 🛒</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1 style="text-align: center; margin: 20px;">All Products</h1>
+    <div class="products">
+        {% for product in products %}
+        <div class="product-card" onclick="handleCardClick(event, {{ product.id }})">
+            <img src="{{ product.image }}" alt="{{ product.title }}">
+            <h2>{{ product.title[:50] }}{% if product.title|length > 50 %}...{% endif %}</h2>
+            <p class="price">${{ "%.2f"|format(product.price) }}</p>
+            <div class="product-actions">
+                <input type="number" min="1" value="1" class="qty-input"
+                       id="qty-{{ product.id }}" onclick="event.stopPropagation();">
+                <button class="btn add-btn"
+                        onclick="event.stopPropagation(); addToCart({{ product.id }});">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+
+<div id="cart-popup" class="cart-popup hidden">Added to cart!</div>
+
+<script>
+function handleCardClick(event, productId) {
+    // Ignore clicks inside .product-actions (input/button area)
+    if (!event.target.closest('.product-actions')) {
+        window.location.href = `/product/${productId}`;
+    }
+}
+
+function addToCart(id) {
+    const qty = document.getElementById(`qty-${id}`).value;
+    fetch(`/add-to-cart/${id}?qty=${qty}`)
+        .then(res => {
+            if (res.ok) {
+                const popup = document.getElementById('cart-popup');
+                popup.classList.remove('hidden');
+                popup.classList.add('show');
+                setTimeout(() => {
+                    popup.classList.remove('show');
+                    popup.classList.add('hidden');
+                }, 2000);
+            } else {
+                alert('Error adding to cart.');
+            }
+        });
+}
+</script>
+</body>
+</html>

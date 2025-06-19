@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <div class="nav-logo">🛍 ModernShop</div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="{{ url_for('cart') }}">Cart 🛒</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="cart-container">
+    <h1>Your Shopping Cart</h1>
+    {% if items %}
+    <div class="cart-table">
+        {% for item in items %}
+        <div class="cart-row" data-id="{{ item.id }}" data-price="{{ item.price }}">
+            <img src="{{ item.image }}" alt="{{ item.title }}">
+            <div class="cart-info">
+                <h3>{{ item.title[:60] }}</h3>
+                <p>Price: ${{ "%.2f"|format(item.price) }}</p>
+                <label>
+                    Quantity:
+                    <input type="number" value="{{ item.qty }}" min="1" class="qty-input" onchange="updateQuantity({{ item.id }}, this.value)">
+                </label>
+                <p class="subtotal">Subtotal: ${{ "%.2f"|format(item.subtotal) }}</p>
+                <button class="btn danger-btn" onclick="removeItem({{ item.id }})">Remove</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="cart-summary">
+        <h2>Total: $<span id="total-price">{{ "%.2f"|format(total) }}</span></h2>
+        <a href="{{ url_for('checkout') }}" class="btn checkout-btn">Proceed to Checkout</a>
+    </div>
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+</main>
+
+<script>
+function updateQuantity(id, qty) {
+    fetch(`/update-cart-item/${id}?qty=${qty}`)
+        .then(res => res.json())
+        .then(data => {
+            document.querySelector(`.cart-row[data-id="${id}"] .subtotal`).innerText = `Subtotal: $${data.subtotal.toFixed(2)}`;
+            document.getElementById('total-price').innerText = data.total.toFixed(2);
+        });
+}
+
+function removeItem(id) {
+    fetch(`/remove-cart-item/${id}`)
+        .then(res => res.json())
+        .then(data => {
+            const row = document.querySelector(`.cart-row[data-id="${id}"]`);
+            row.remove();
+            document.getElementById('total-price').innerText = data.total.toFixed(2);
+            if (data.total === 0) location.reload();
+        });
+}
+</script>
+</bo

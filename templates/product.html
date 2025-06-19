@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">🛍 ModernShop</div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="{{ url_for('cart') }}">Cart 🛒</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="product-detail-container">
+        <div class="product-detail">
+            <div class="image-section">
+                <img src="{{ product.image }}" alt="{{ product.title }}">
+            </div>
+            <div class="info-section">
+                <h1>{{ product.title }}</h1>
+                <p class="price">${{ "%.2f"|format(product.price) }}</p>
+                <p class="description">{{ product.description }}</p>
+
+                <div class="buy-controls">
+                    <input type="number" min="1" value="1" class="qty-input" id="qty-{{ product.id }}">
+                    <button class="btn add-btn" onclick="addToCart({{ product.id }})">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="cart-popup" class="cart-popup hidden">Added to cart!</div>
+
+    <script>
+        function addToCart(productId) {
+            const qty = document.getElementById(`qty-${productId}`).value;
+            fetch(`/add-to-cart/${productId}?qty=${qty}`)
+                .then(() => {
+                    const popup = document.getElementById('cart-popup');
+                    popup.classList.remove('hidden');
+                    popup.classList.add('show');
+                    setTimeout(() => {
+                        popup.classList.remove('show');
+                        popup.classList.add('hidden');
+                    }, 2000);
+                });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout - ModernShop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <div class="nav-logo">🛍 ModernShop</div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="{{ url_for('cart') }}">Cart 🛒</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="checkout-container">
+    <h1>Checkout</h1>
+    <form method="POST" class="checkout-form">
+        <label for="name">Full Name</label>
+        <input type="text" name="name" id="name" required placeholder="John Doe">
+
+        <label for="email">Email Address</label>
+        <input type="email" name="email" id="email" required placeholder="john@example.com">
+
+        <label for="address">Shipping Address</label>
+        <textarea name="address" id="address" rows="4" required placeholder="123 Main Street, City, Country"></textarea>
+
+        <button type="submit" class="btn checkout-btn full-width">Place Order</button>
+    </form>
+</main>
+</body>
+</html>
