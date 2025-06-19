@@ -1,9 +1,15 @@
 from flask import Flask, render_template, session, redirect, url_for, request
 import requests
 from datetime import datetime
+from dotenv import load_dotenv
+import os
 
-TELEGRAM_API = "https://api.telegram.org/bot7844343757:AAEXyswSudN9N2VHTVVDMe-pYbrC5g0uJTU/sendMessage"
-CHAT_ID = "977184900"  # Your Telegram chat ID or channel username
+load_dotenv()  # take environment variables from .env
+
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
+CHAT_ID = os.getenv('CHAT_ID')
+TELEGRAM_API = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
+
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Replace with a secure key in production
